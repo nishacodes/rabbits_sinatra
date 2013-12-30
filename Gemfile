@@ -1,8 +1,9 @@
 source 'https://rubygems.org' 
 
-require 'sinatra'
-require 'data_mapper'
-require 'haml'
+gem 'sinatra'
+gem 'data_mapper'
+gem 'haml'
+gem 'dm-sqlite-adapter'
 
 group :development do 
   gem 'shotgun' 
