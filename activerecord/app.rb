@@ -2,7 +2,7 @@ require 'bundler'
 Bundler.require
 require './lib/rabbit.rb'
 
-DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/rabbits.db")
+# DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/rabbits.db")
 
 # class App < Sinatra::Application
 # list all rabbits
