@@ -1,8 +1,10 @@
 require 'bundler'
 Bundler.require
+require 'sinatra'
+require 'sinatra/activerecord'
 require './lib/rabbit.rb'
 
-# DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/rabbits.db")
+set :database, "sqlite3:///rabbits.db"
 
 # class App < Sinatra::Application
 # list all rabbits
@@ -30,13 +32,13 @@ require './lib/rabbit.rb'
 
   # edit rabbit
   get '/rabbits/edit/:id' do
-    @rabbit = Rabbit.get(params[:id])
+    @rabbit = Rabbit.find(params[:id])
     haml :edit
   end
 
   # update rabbit
   put '/rabbits/:id' do
-    @rabbit = Rabbit.get(params[:id])
+    @rabbit = Rabbit.find(params[:id])
     if @rabbit.update(params[:rabbit])
       status 201
       redirect '/rabbits/' + params[:id]
@@ -48,21 +50,20 @@ require './lib/rabbit.rb'
 
   # delete rabbit confirmation
   get '/rabbits/delete/:id' do
-    @rabbit = Rabbit.get(params[:id])
+    @rabbit = Rabbit.find(params[:id])
     haml :delete
   end
 
   # delete rabbit
   delete '/rabbits/:id' do
-    Rabbit.get(params[:id]).destroy
+    Rabbit.find(params[:id]).destroy
     redirect '/rabbits'  
   end
 
   # show rabbit
   get '/rabbits/:id' do
-    @rabbit = Rabbit.get(params[:id])
+    @rabbit = Rabbit.find(params[:id])
     haml :show
   end
 # end
 
-DataMapper.auto_upgrade!
